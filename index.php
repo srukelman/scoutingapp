@@ -1,8 +1,5 @@
 <?php
-
-    if(array_key_exists('submit', $_POST)){
-        
-    }
+    
 ?>
 
 <!DOCTYPE html>
@@ -11,19 +8,22 @@
         <title>Team 6220 Scouting</title>
         <meta name ="viewport" context = "width=device-width, initial-scale=1.0"/>
         <link rel="stylesheet" href = "styles.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="script.js"></script>
+        
     </head>
     <body>
         <!--<form action = "data.php" method="post">-->
             <h3>Match Info</h3>
+            <h5><a href="data.php">see scouting data</a></h5>
             <table class="infotable">
                 <tr>
                     <td>Team #: </td>
-                    <td colspan="2"><input id="teamnum" type="number" name="teamnum" class="input" placeholder="Team #"/></td>
+                    <td colspan="2"><input id="teamnum" type="number" name="teamnum" class="input" placeholder="Team #" onchange="teamNum();"/></td>
                 </tr>
                 <tr>
                     <td>Match #: </td>
-                    <td colspan="2"><input type="number" name="matchnum" class="input" placeholder="Match #"/></td>
+                    <td colspan="2"><input id="matchnum" type="number" name="matchnum" class="input" placeholder="Match #" onchange="matchNum();"/></td>
                 </tr>
             </table>
             <h3>Auto</h3>
@@ -85,7 +85,19 @@
                     <td><button class="crement" id="teleLowerScoup" onclick="crement(this.id);">+</button></td>
                 </tr>
                 <tr>
-                    <td><nobr>Climb: </nobr></td>
+                    <td><nobr>Climb Attempted: </nobr></td>
+                    <td colspan="3"> 
+                        <select name="climb" id="climb" onchange="climbA();">
+                            <option value="none">None</option>
+                            <option value="low">Low</option>
+                            <option value="mid">Mid</option>
+                            <option value="high">High</option>
+                            <option value="traversal">Traversal</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><nobr>Climb Scored: </nobr></td>
                     <td colspan="3"> 
                         <select name="climb" id="climb" onchange="climb();">
                             <option value="none">None</option>
@@ -98,9 +110,9 @@
                 </tr>
                 <tr>
                     <td><nobr>Fouls: </nobr></td>
-                    <td><button class="crement" id="foulsdo" onclick="crement(this.id);">-</button></td>
+                    <td><button class="crement" id="foulsdo" onclick="foul(this.id);">-</button></td>
                     <td><nobr id="fouls">0</nobr></td>
-                    <td><button class="crement" id="foulsup" onclick="crement(this.id);">+</button></td>
+                    <td><button class="crement" id="foulsup" onclick="foul(this.id);">+</button></td>
                 </tr>
             </table>
             <table class = "othertable">
@@ -115,7 +127,7 @@
                 </tr>
                 <tr>
                     <td><nobr>Defense</nobr></td>
-                    <td><input type="range" min="1" max="3" value="2" class="slider" id="strat"></td>
+                    <td><input type="range" min="1" max="3" value="2" class="slider" id="strat" onchange="strat();"></td>
                     <td><nobr>Offense</nobr></td>
                 </tr>
                 <tr>
@@ -123,7 +135,7 @@
                 </tr>
                 <tr>
                     <td><nobr>Bad</nobr></td>
-                    <td><input type="range" min="1" max="5" value="3" class="slider" id="rating"></td>
+                    <td><input type="range" min="1" max="5" value="3" class="slider" id="rating" onchange="rating();"></td>
                     <td><nobr>Good</nobr></td>
                 </tr>
                 <tr>
@@ -131,11 +143,11 @@
                 </tr>
                 <tr>
                     <td><nobr>Slow</nobr></td>
-                    <td><input type="range" min="1" max="5" value="3" class="slider" id="speed"></td>
+                    <td><input type="range" min="1" max="5" value="3" class="slider" id="speed" onchange="speed();"></td>
                     <td><nobr>Fast</nobr></td>
                 </tr>
                 <tr>
-                    <td colspan="3"><form method="post"><input type="submit" name ="submit" class="button" value="submit">Submit!</input></form></td>
+                    <td colspan="3"><button class="butt" id="sub">Submit</button></td>
                 </tr>
             </table>
 
